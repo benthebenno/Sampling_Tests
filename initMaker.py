@@ -1,3 +1,13 @@
+
+
+def matrixPrint(matrix):
+    for i in range(len(matrix)):
+        for m in matrix:
+            print(m[i], end="")
+        print("")
+        
+
+
 def initMaker(x_array, y_array):
     # matrix = [[0]*len(x_array)]*len(y_array) 
     rows, cols = (len(x_array), len(y_array))
@@ -12,41 +22,47 @@ def initMaker(x_array, y_array):
 
     #This loop populates the collums by the first valid option 
     for i in range(len(x_array)):
-        print(matrix)
+        # print(matrix)
         frequency = x_array[i]
-        print("frequency")
-        print(frequency)
+        # print("frequency")
+        # print(frequency)
         sucess = 0
         for y_index in range(len(y_array)):
             if sucess == frequency:   
-                print("break triggered")
+                # print("break triggered")
                 break 
             if rowHasRoom(x_array, y_array, matrix, y_index):
-                print("row increase triggered")
-                print(matrix)
-                print(i)
-                print(y_index)
+                # print("row increase triggered")
+                # print(matrix)
+                # print(i)
+                # print(y_index)
                 matrix[i][y_index] = 1
-                print(matrix)
+                # print(matrix)
                 sucess += 1
-        if sucess < frequency:
-            print("This is not a valid matrix please try again")
-            return IndexError
+        # if sucess < frequency:
+        #     matrixPrint(matrix)
+        #     print("This is not a valid matrix please try again")
+        #     return IndexError
     print("This should populate the collums correctly")
 
-    print(matrix)
+    # print(matrix)
     #This loop populates the rows with the first valid option
     for i in range(len(y_array)):
         frequency = y_array[i]
         sucess = 0
+        # print(frequency)
         for x_index in range(len(x_array)):
             if sucess == frequency: 
                 break 
             if collumHasRoom(x_array, y_array, matrix[x_index], x_index):
                 matrix[x_index][i] = 1
                 sucess += 1
+            else:
+                sucess +=1 
         if sucess < frequency:
+            print(matrix)
             print("This is not a valid matrix please try again")
+            return IndexError
     return matrix
 
 def collumHasRoom(x_array, y_array, collum, index):

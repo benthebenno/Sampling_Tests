@@ -1,6 +1,15 @@
 from initMaker import initMaker
 from swapAlgo import swapAlgo
 
+
+def matrixPrint(matrix):
+    for i in range(len(matrix)):
+        for m in matrix:
+            print(m[i], end="")
+        print("")
+        
+
+
 print("Welcome to my Sampling Program")
 print("This program will have you describe a matrices parameters, then the type of algorithm you desire to create a random sample")
 matrix_x = int(input("How wide is your matrix:"))
@@ -26,7 +35,7 @@ if choice == str(1):
     iterations  = input("How many iterations would you like this model to run for: ")
     initMatrix = initMaker(x_array, y_array)
     print("MADE IT TO THE END")
-    print(initMatrix)
+    matrixPrint(initMatrix)
     # swapAlgo(initMatrix, iterations)
 else: 
     print("Not a valid choice")
