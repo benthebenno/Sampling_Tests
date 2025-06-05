@@ -76,8 +76,4 @@ def rowHasRoom(x_array, y_array, matrix, index):
         return True
     return False
 
-# def makeRow(index, matrix, length):
-#     row = []
-#     for i in range(length):
-#         row.append(matrix[i][index])
-#     return row
+

@@ -1,6 +1,6 @@
 from initMaker import initMaker
 from swapAlgo import swapAlgo
-
+from rectangleLoop import rectabgleLoop
 
 def matrixPrint(matrix):
     for i in range(len(matrix)):
@@ -41,14 +41,16 @@ matrixPrint(matrix)
 
 print("Now choose what type of model you would like")
 print("     1. Swap Algorithm")
+print("     2. Rectangle Loop Algorithm")
 
 choice = input("Enter Number:")
+iterations  = input("How many iterations would you like this model to run for: ")
 if choice == str(1):
-    iterations  = input("How many iterations would you like this model to run for: ")
-    # initMatrix = initMaker(x_array, y_array)
-    # print("MADE IT TO THE END")
-    # matrixPrint()
     final = swapAlgo(matrix, iterations)
+    print("This is the random matrix:")
+    matrixPrint(final)
+if choice == str(2):
+    final = rectabgleLoop(matrix, iterations)
     print("This is the random matrix:")
     matrixPrint(final)
 else: 
