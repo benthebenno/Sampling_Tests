@@ -1,13 +1,3 @@
-
-
-def matrixPrint(matrix):
-    for i in range(len(matrix)):
-        for m in matrix:
-            print(m[i], end="")
-        print("")
-        
-
-
 def initMaker(x_array, y_array):
     # matrix = [[0]*len(x_array)]*len(y_array) 
     rows, cols = (len(x_array), len(y_array))
@@ -36,7 +26,8 @@ def initMaker(x_array, y_array):
                 # print(matrix)
                 # print(i)
                 # print(y_index)
-                matrix[i][y_index] = 1
+                #This places in last spot, might work better
+                matrix[i][len(y_array) - y_index - 1] = 1
                 # print(matrix)
                 sucess += 1
         # if sucess < frequency:
@@ -55,7 +46,7 @@ def initMaker(x_array, y_array):
             if sucess == frequency: 
                 break 
             if collumHasRoom(x_array, y_array, matrix[x_index], x_index):
-                matrix[x_index][i] = 1
+                matrix[len(x_array) - x_index - 1][i] = 1
                 sucess += 1
             else:
                 sucess +=1 
