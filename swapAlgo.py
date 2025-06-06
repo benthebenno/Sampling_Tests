@@ -2,6 +2,7 @@ import random
 from matrixPrint import matrixPrint
 def swapAlgo(init_matrix, iterations):
     for i in range(int(iterations)):
+        # print("This is the iteration in the swap" + str(i))
         first_row = random.randrange(0, len(init_matrix))
         second_row = random.randrange(0, len(init_matrix))
         while first_row == second_row:
@@ -38,6 +39,7 @@ def swapAlgo(init_matrix, iterations):
         # print(second_collumn)  
         if init_matrix[first_row][first_collumn] == init_matrix[second_row][second_collumn]:
             if init_matrix[second_row][first_collumn] == init_matrix[first_row][second_collumn]:
+                # print("A swap occured")
                 first_num = init_matrix[first_row][first_collumn]
                 second_num = init_matrix[second_row][first_collumn]
 
@@ -46,7 +48,5 @@ def swapAlgo(init_matrix, iterations):
                 init_matrix[second_row][second_collumn] = second_num
                 init_matrix[second_row][first_collumn] = first_num
                 init_matrix[first_row][second_collumn] = first_num
-        # matrixPrint(init_matrix)
-        if i % 1000 == 0:
-            print(i)
+                # print(init_matrix)
     return init_matrix
