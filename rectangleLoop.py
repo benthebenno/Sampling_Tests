@@ -41,12 +41,12 @@ def rectabgleLoop(matrix, iterations):
                 matrixPrint(matrix)
                 print(str(colum_num)+"," + str(row_num))
                 print(str(secondNum)+"," + str(thirdNum))
-                print(str(second_colum)+"," + str(row_num))
+                print(str(secondNum)+"," + str(row_num))
                 print(str(colum_num)+","+str(thirdNum))
 
                 matrix[colum_num][row_num] = 0
                 matrix[secondNum][thirdNum] = 0
-                matrix[second_colum][row_num] = 1
+                matrix[secondNum][row_num] = 1
                 matrix[colum_num][thirdNum] = 1
 
         
