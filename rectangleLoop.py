@@ -1,5 +1,5 @@
 import random
-# from matrixPrint import matrixPrint 
+from matrixPrint import matrixPrint 
 
 def rectabgleLoop(matrix, iterations):
     for i in range(int(iterations)):
@@ -22,9 +22,11 @@ def rectabgleLoop(matrix, iterations):
             second_colum = matrix[secondNum]
 
             thirdNum = -1
+            count = 0
             for i in second_colum:
                 if i == 1:
-                    thirdNum = i
+                    thirdNum = count
+                count += 1
             if thirdNum == -1:
                 # print("No third number in colum")
                 continue
