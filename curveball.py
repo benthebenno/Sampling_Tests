@@ -4,11 +4,15 @@ def curveBallAlgo(init_matrix, iterations):
     for i in range(iterations):
         row_a = random.randrange(0,len(init_matrix))
         row_b = random.randrange(0,len(init_matrix))
+      
         while row_a == row_b:
             row_b = random.randrange(0,len(init_matrix))
+        print("row_a= " + str(row_a))
+        print("row_b= " + str(row_b))
         a_b = []
         b_a = []
         V = []
+       
         for k in range(len(init_matrix)):
             if init_matrix[k][row_a] == 1:
                 if init_matrix[k][row_b] == 0:
@@ -19,7 +23,13 @@ def curveBallAlgo(init_matrix, iterations):
                     b_a.append(l)
         for item in b_a:
             if random.randrange(0,2) == 1:
-                V.append(item)
+                V.append(item) 
+        if len(b_a) < len(a_b):
+            continue
+        print("a_b= " + str(a_b))
+        print("b_a= " + str(b_a))
+        print("V= " + str(V))
+
         for a in range(len(init_matrix)):
             if a in V:
                 init_matrix[a][row_a] = 1
