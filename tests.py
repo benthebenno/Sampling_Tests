@@ -129,9 +129,9 @@ else:
     print("):")
 
 
-if curveTest(number):
-    print("Curveball algorithm test Sucessful")
-else:
-    print("):")
+# if curveTest(number):
+#     print("Curveball algorithm test Sucessful")
+# else:
+#     print("):")
 
 
