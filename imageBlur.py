@@ -9,7 +9,7 @@ import numpy as np
 
 
 # imagePath = input("Please give an image path: ")
-imagePath = r"C:\Users\benra\money-maker\Sampling_Tests\testImage.png"
+imagePath = r"C:\Users\user\Sampling_Tests\testImage.png"
 im = Image.open(imagePath)
 
 rows, cols = im.size
@@ -33,7 +33,7 @@ reversedImage = fftn(Z)
 
 ax1.imshow(np_matrix, cmap=cm.Reds)
 ax4.imshow(np.real(Z), cmap=cm.gray)
-ax5.imshow(reversedImage, cmap=cm.Reds)
+ax5.imshow(np.real(reversedImage), cmap=cm.Reds)
 plt.show()
 
 #This rebuilds a new image
