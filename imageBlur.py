@@ -12,6 +12,7 @@ import numpy as np
 imagePath = r"C:\Users\user\Sampling_Tests\testImage.png"
 im = Image.open(imagePath)
 
+blur = int(input("How much would you like the image blurred"))
 rows, cols = im.size
 matrix = [[0 for i in range(cols)] for j in range(rows)]
 
@@ -29,11 +30,21 @@ for x in range(len(matrix)):
 
 # matrixPrint(matrix)
 Z = ifftn(np_matrix)
+# print(Z)
+
+#This part should slice Z
+# for i in range(int(blur)):
+#     np.delete(Z, 1,1)
+#     np.delete(Z, -1,-1)
+for x in range(len(Z)):
+    for y in range(len(Z)):
+        if not((x > blur and x < (im.size[0] - blur)) and (y > blur and y < (im.size[0]-blur))): 
+            Z[x,y] = 0 
 reversedImage = fftn(Z)
 
-ax1.imshow(np_matrix, cmap=cm.Reds)
+ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(Z), cmap=cm.gray)
-ax5.imshow(np.real(reversedImage), cmap=cm.Reds)
+ax5.imshow(np.real(reversedImage), cmap=cm.gray)
 plt.show()
 
 #This rebuilds a new image
