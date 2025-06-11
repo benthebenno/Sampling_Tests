@@ -43,25 +43,25 @@ def matrixSum(matrix):
     return (x_array, y_array)
              
 
-for i in range (2, 10):
-        print("It has made it to matrix of size: " + str(i) )
-        rows, cols = (i, i)
-        matrix = [[0 for i in range(cols)] for j in range(rows)]
+# for i in range (2, 10):
+#         print("It has made it to matrix of size: " + str(i) )
+#         rows, cols = (i, i)
+#         matrix = [[0 for i in range(cols)] for j in range(rows)]
 
-        rows, cols = (i, i)
-        saved_matrix = [[0 for i in range(cols)] for j in range(rows)]
+#         rows, cols = (i, i)
+#         saved_matrix = [[0 for i in range(cols)] for j in range(rows)]
 
-        for x in range(i):
-            for y in range(i):
-                new_num = random.randrange(0,2)
-                matrix[x][y]= new_num
-                saved_matrix[x][y] = new_num
-        (x_array, y_array) = matrixSum(matrix)
-        newMatrix = initMaker(x_array, y_array)
-        if newMatrix == saved_matrix:
-             print("For this they are the same")
-        if not hasSameSums(saved_matrix, newMatrix):
-            matrixPrint(saved_matrix)
-            matrixPrint(newMatrix)
-            print("THIS HAS FAILED")
+#         for x in range(i):
+#             for y in range(i):
+#                 new_num = random.randrange(0,2)
+#                 matrix[x][y]= new_num
+#                 saved_matrix[x][y] = new_num
+#         (x_array, y_array) = matrixSum(matrix)
+#         newMatrix = initMaker(x_array, y_array)
+#         if newMatrix == saved_matrix:
+#              print("For this they are the same")
+#         if not hasSameSums(saved_matrix, newMatrix):
+#             matrixPrint(saved_matrix)
+#             matrixPrint(newMatrix)
+#             print("THIS HAS FAILED")
 
