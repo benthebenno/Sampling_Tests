@@ -1,20 +1,24 @@
+from tests import matrixPrint
 def initMaker(x_array, y_array):
 
     rows, cols = (len(x_array), len(y_array))
     matrix = [[0 for i in range(cols)] for j in range(rows)]
    
-    # print(matrix)
-
+    # print(f"x Array = {x_array}")
+    # print(f"y array = {y_array}")
+    # matrixPrint(matrix)
     for i in range(len(matrix)):
         k = 0
         j = 0
         while j < x_array[i]:
+            if len(y_array) <= k:
+                break
             if(y_array[k] == 0):
                 j = j - 1
                 k = k + 1
             else: 
                 matrix[i][k] = 1
-                y_array[k] = y_array[k] - 1
+                y_array[k] = int(y_array[k]) - 1
                 k = k + 1
             j = j + 1
     return matrix 

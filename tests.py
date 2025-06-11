@@ -116,17 +116,17 @@ def curveTest(iterations):
             return False
     return True
 
-number= int(input("For these tests up to how large do you want the matrices to be?"))
+# number= int(input("For these tests up to how large do you want the matrices to be?"))
 
-if swapAlgoTests(number):
-    print("swapAlgoTests Sucessful")
-else:
-    print("):")
+# if swapAlgoTests(number):
+#     print("swapAlgoTests Sucessful")
+# else:
+#     print("):")
 
-if rectangleLoopTest(number):
-    print("rectangle Loop test Sucessful")
-else:
-    print("):")
+# if rectangleLoopTest(number):
+#     print("rectangle Loop test Sucessful")
+# else:
+#     print("):")
 
 
 # if curveTest(number):

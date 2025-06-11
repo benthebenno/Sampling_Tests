@@ -21,10 +21,10 @@ f, ((ax1), (ax4), (ax5)) = plt.subplots(3, 1, sharex='col', sharey='row')
 
 np_matrix = np.zeros((len(matrix),len(matrix[0])))
 
-#This seperates the image into a matrix, of points an non points, perhaps not the most elegant solution but it works
+#This seperates the image into a matrix, of points an non points, perhaps not the most elegant solution but it
 for x in range(len(matrix)):
     for y in range(len(matrix[x])):
-        if im.getpixel((x,y))[0] > 160:
+        if im.getpixel((x,y))[0] > 130:
             np_matrix[x, y] = 0
         else: 
             np_matrix[x,y] = 1
