@@ -1,26 +1,32 @@
 from tests import matrixPrint
 #taken from here https://www.geeksforgeeks.org/generate-a-matrix-with-each-row-and-column-of-given-sum/
+from tests import hasSameSums
+def initFixer(matrix, comparisonMatrix, x_array, y_array):
+    while not (hasSameSums(matrix, comparisonMatrix)):
+        for x in range(len(x_array)):
+            for y in range(len(y_array)):
 
 def initMaker(x_array, y_array):
-
     rows, cols = (len(x_array), len(y_array))
     matrix = [[0 for i in range(cols)] for j in range(rows)]
    
     # print(f"x Array = {x_array}")
     # print(f"y array = {y_array}")
     # matrixPrint(matrix)
-
-    currRowSum = [0] * rows
-    currColSum = [0] * cols    
-    for i in range(rows):
-        for j in range(cols):
-            rowVal = x_array[i] - currRowSum[i]
-            colVal = y_array[j] - currColSum[j]
-
-            matrix[i][j] = min(rowVal, colVal, 1)
-
-            currRowSum[i] += matrix[i][j]
-            currColSum[j] += matrix[i][j]
+    for i in range(len(matrix)):
+        k = 0
+        j = 0
+        while j < round(x_array[i]):
+            if len(y_array) <= k:
+                break
+            if(y_array[k] < 0.0005):
+                j = j - 1
+                k = k + 1
+            else: 
+                matrix[i][k] = 1
+                y_array[k] = int(y_array[k]) - 1
+                k = k + 1
+            j = j + 1
     return matrix 
 
 
