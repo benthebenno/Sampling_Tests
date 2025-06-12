@@ -17,6 +17,7 @@ np_matrix = np.zeros((len(matrix),len(matrix[0])))
 f, ((ax1), (ax4), (ax5)) = plt.subplots(3, 1, sharex='col', sharey='row')
 
 fourier_matrix = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
+
 for x in range(len(matrix)):
     for y in range(len(matrix[x])):
         if im.getpixel((x,y))[0] > 130:
@@ -43,10 +44,10 @@ for collum in range(x_max):
             fourier_matrix[row_count, 0] = (y_row_sum * (np.cos(2*(np.pi*(collum*row_count)/x_max)))) + (np.sin(2*np.pi*(2*(np.pi*(collum*row_count)/x_max)))*1j)
     row_count += 1
 
-Z = ifftn(fourier_matrix)
-reversedImage = fftn(Z)
+# Z = ifftn(fourier_matrix)
+reversedImage = fftn(fourier_matrix)
 
 ax1.imshow(np_matrix, cmap=cm.gray)
-ax4.imshow(np.real(Z), cmap=cm.gray)
+ax4.imshow(np.real(fourier_matrix), cmap=cm.gray)
 ax5.imshow(np.real(reversedImage), cmap=cm.gray)
 plt.show()
