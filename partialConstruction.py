@@ -31,17 +31,17 @@ count = 0
 y_max = len(matrix[0])
 for row in range(y_max):
     for x_row_sum in sum_x:
-        fourier_matrix[0, count] = (x_row_sum * (np.cos(2*(np.pi*(row*count)/y_max)))) + (x_row_sum *(np.sin(2*(np.pi*(2*np.pi*(row*count)/y_max)))*1j))
+        fourier_matrix[0, count] += (x_row_sum * (np.cos(2*(np.pi*(row*count)/y_max)))) + (x_row_sum *(np.sin(2*(np.pi*(2*np.pi*(row*count)/y_max)))*1j))
     count += 1
 row_count = 0
 x_max = len(matrix)
 
 for collum in range(x_max):
     for y_row_sum in sum_y:
-        if collum == 0:
-            fourier_matrix[row_count, 0] += (y_row_sum * (np.cos(2*(np.pi*(collum*row_count)/x_max)))) + (np.sin(2*np.pi*(2*(np.pi*(collum*row_count)/x_max)))*1j)
-        else:
-            fourier_matrix[row_count, 0] = (y_row_sum * (np.cos(2*(np.pi*(collum*row_count)/x_max)))) + (np.sin(2*np.pi*(2*(np.pi*(collum*row_count)/x_max)))*1j)
+        # if collum == 0:
+        #     fourier_matrix[row_count, 0] += (y_row_sum * (np.cos(2*(np.pi*(collum*row_count)/x_max)))) + (np.sin(2*np.pi*(2*(np.pi*(collum*row_count)/x_max)))*1j)
+        # else:
+        fourier_matrix[row_count, 0] += (y_row_sum * (np.cos(2*(np.pi*(collum*row_count)/x_max)))) + (np.sin(2*np.pi*(2*(np.pi*(collum*row_count)/x_max)))*1j)
     row_count += 1
 
 # Z = ifftn(fourier_matrix)
