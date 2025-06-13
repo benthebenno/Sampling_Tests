@@ -43,7 +43,7 @@ def matrixSum(matrix):
     return (x_array, y_array)
              
 
-for i in range (2, 10):
+for i in range (2, 150):
         print("It has made it to matrix of size: " + str(i) )
         rows, cols = (i, i)
         matrix = [[0 for i in range(cols)] for j in range(rows)]
@@ -65,7 +65,7 @@ for i in range (2, 10):
         if newMatrix == saved_matrix:
              print("For this they are the same")
         if not hasSameSums(saved_matrix, newMatrix):
-            matrixPrint(saved_matrix)
+            # matrixPrint(saved_matrix)
             matrixPrint(newMatrix)
             print("THIS HAS FAILED")
             break
