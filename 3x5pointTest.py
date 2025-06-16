@@ -50,11 +50,15 @@ for element in data:
             occuranceDict[element] += 1
 
 keys = occuranceDict.keys()
+strkeysArray = []
+
+for val in keys:
+    strkeysArray.append(str(val))
 values = occuranceDict.values()
 
         
 
-plt.bar(keys,values)
+plt.bar(strkeysArray,values)
 plt.ylabel('Occurances')
 plt.xlabel('Numbers')
 plt.show()
