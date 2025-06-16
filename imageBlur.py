@@ -11,6 +11,7 @@ import numpy as np
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
 
+#make it a direct input number
 blur = (((int(input("How much would you like the image blurred, as a percent: "))/100) * (im.size[0]/2))) 
 print(f"This is the size {im.size[0]/2}")
 print(f"This is the blur {blur}")
@@ -30,13 +31,14 @@ for x in range(len(matrix)):
             np_matrix[x,y] = 1
 
 
-Z = ifftn(np_matrix)
+Z = fftn(np_matrix)
 
 for x in range(len(Z)):
     for y in range(len(Z[0])):
         if not((x > blur and x < (im.size[0] - blur)) and (y > blur and y < (im.size[0]-blur))): 
+        # if (y>blur):
             Z[x,y] = 0 
-reversedImage = fftn(Z)
+reversedImage = ifftn(Z)
 
 ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(Z), cmap=cm.gray)
