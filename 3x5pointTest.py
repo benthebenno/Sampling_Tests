@@ -12,7 +12,7 @@ input_x = int(input("What x value do you want to check?"))
 input_y = int(input("What y value do you want to check?"))
 
 #This section makes and populates a 3x5 matrix
-np_matrix = np.zeros((3,5))
+np_matrix = np.zeros((11,13))
 for y in range(len(np_matrix[0])):
     for x in range(len(np_matrix)):
         np_matrix[(x,y)] = random.randrange(0,2)    
