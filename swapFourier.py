@@ -7,7 +7,7 @@ from scipy.fft import ifftn
 import matplotlib.cm as cm
 from PIL import Image
 from initTest import matrixSum
-
+from roundMatrix import round
 
 def fourSwap(x_sums, y_sums, iterations, im):
 
@@ -38,24 +38,24 @@ def fourSwap(x_sums, y_sums, iterations, im):
 
         #This turns the next matrix into the old one 
 
-        transformedMatrix = np.real(ifftn(fourMatrix))
+        np_matrix = round(ifftn(fourMatrix))
 
-        for x in range(len(transformedMatrix)):
-            for y in range(len(transformedMatrix[x])):
-                if transformedMatrix[(x,y)] > 0:
-                    transformedMatrix[x,y] = 1
-                else:   
-                    transformedMatrix[x,y] = 0
+        # for x in range(len(transformedMatrix)):
+        #     for y in range(len(transformedMatrix[x])):
+        #         if transformedMatrix[(x,y)] > 0.5:
+        #             transformedMatrix[x,y] = 1
+        #         else:   
+        #             transformedMatrix[x,y] = 0
         
         #This line makes the next iteration the ROUNDED transformed matrix
-        np_matrix = transformedMatrix
+         
 
-        print("TRAnsform heading")
-        print(transformedMatrix)
-        print("-----------------------------")
-        print("Original heading")
-        print(ifftn(fourMatrix))
-    return (transformedMatrix, ifftn(fourMatrix) )
+        # print("TRAnsform heading")
+        # print(transformedMatrix)
+        # print("-----------------------------")
+        # print("Original heading")
+        # print(ifftn(fourMatrix))
+    return (np_matrix, ifftn(fourMatrix) )
 
 
         
