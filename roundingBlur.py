@@ -9,13 +9,6 @@ from roundComplexMatrix import roundCM
 
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
-
-#make it a direct input number
-# blur = (((int(input("How much would you like the image blurred, as a percent: "))/100) * (im.size[0]/2))) 
-print(im.size)
-# blur = int(input("How much would you like the image blurred (smaller number means more blur) "))
-# print(f"This is the size {im.size[0]/2}")
-# print(f"This is the blur {blur}")
 rows, cols = im.size
 matrix = [[0 for i in range(cols)] for j in range(rows)]
 
@@ -53,7 +46,8 @@ for x in range(len(f11)):
             f11[x,y] = 0 
 
 
-f5 = roundCM(f5)
+f5 = roundCM(f5, 100)
+print(f5)
 
 
 reversedImage5 = ifftn(f5)
