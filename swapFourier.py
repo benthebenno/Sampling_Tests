@@ -11,7 +11,7 @@ from roundMatrix import round
 
 def fourSwap(x_sums, y_sums, iterations, im):
 
-
+    
     partialMatrix = fourier0sMaker(x_sums, y_sums, im)
     # This part should do part 1 of the algorithm
     np_matrix = np.zeros((len(x_sums), len(y_sums)))
@@ -27,34 +27,12 @@ def fourSwap(x_sums, y_sums, iterations, im):
                             x_sums[sumNum] -= 1
                     count += 1
     for i in range(iterations):
-       
-        # print(np_matrix)
-
         fourMatrix = fftn(np_matrix)
         for x in range(len(fourMatrix)):
             fourMatrix[(x,0)] = partialMatrix[(x,0)]
         for y in range(len(fourMatrix[0])):
             fourMatrix[(0,y)] = partialMatrix[(0,y)]
-
-        #This turns the next matrix into the old one 
-
         np_matrix = round(ifftn(fourMatrix))
-
-        # for x in range(len(transformedMatrix)):
-        #     for y in range(len(transformedMatrix[x])):
-        #         if transformedMatrix[(x,y)] > 0.5:
-        #             transformedMatrix[x,y] = 1
-        #         else:   
-        #             transformedMatrix[x,y] = 0
-        
-        #This line makes the next iteration the ROUNDED transformed matrix
-         
-
-        # print("TRAnsform heading")
-        # print(transformedMatrix)
-        # print("-----------------------------")
-        # print("Original heading")
-        # print(ifftn(fourMatrix))
     return (np_matrix, ifftn(fourMatrix) )
 
 
@@ -81,8 +59,6 @@ def main():
                 np_matrix[x,y] = 1
 
     (x_val, y_val) = matrixSum(np_matrix)
-    # print(x_val,y_val)
-    
 
     sawpTouple = fourSwap(x_val, y_val, iterations, im)
 
@@ -104,10 +80,6 @@ def main():
     #data before rounding
     ax7.imshow(np.real(sawpTouple[1]), cmap=cm.gray)
 
-
-    # print(fourSwap(x_val, y_val, iterations, im))
-    # print("break")
-    # print(np.real(fourSwap(x_val, y_val, iterations, im)))
     
     plt.show()
 
