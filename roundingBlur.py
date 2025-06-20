@@ -46,7 +46,7 @@ for x in range(len(f11)):
             f11[x,y] = 0 
 
 
-f5 = roundCM(f5, 100)
+f5 = roundCM(f5, 100000)
 print(f5)
 
 
