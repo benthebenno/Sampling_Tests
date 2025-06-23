@@ -4,6 +4,7 @@ import matplotlib.cm as cm
 
 
 def closer(firstVal, secondVal):
+    return True
     if firstVal >= 0 and secondVal >=0: 
         if firstVal < secondVal:
             return True
@@ -79,7 +80,7 @@ def roundCM(matrix, split):
                     matrix[x,y] = possible_values[i]
                     diffMatrix[x,y] = diffVal
    
-    print(diffMatrix)
+    # print(diffMatrix)
     AfterRound.imshow(np.real(matrix), cmap=cm.gray)
 
     plt.show()
