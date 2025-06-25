@@ -28,7 +28,10 @@ for x in range(len(matrix)):
         else: 
             np_matrix[x,y] = 1
 
+print("Made it to first ffft")
 Z = wfft(np_matrix)
+
+print("MAde it to reverse")
 reversedImage = iwfft(Z)
 
 

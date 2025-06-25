@@ -31,6 +31,7 @@ def wfft(matrix):
         for y in range(len(matrix[0])):
             currrentVal = wFourierF(matrix, testSeed, x, y)
             returnMat[(x,y)] = currrentVal
+        # print(x)
     return returnMat
         
 def iwfft(matrix):
@@ -38,6 +39,7 @@ def iwfft(matrix):
     for x in range(len(matrix)):
         for y in range(len(matrix[0])):
             returnMat[(x,y)] = wFourierI(matrix, testSeed, x, y)
+        # print(x)
     return returnMat
 
 
