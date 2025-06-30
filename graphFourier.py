@@ -7,6 +7,7 @@ import matplotlib.cm as cm
 import numpy as np
 from roundComplexMatrix import roundCM
 from wFourierFI import wfft
+
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
 rows, cols = im.size

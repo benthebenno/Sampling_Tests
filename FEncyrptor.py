@@ -32,11 +32,11 @@ print("Made it to first ffft")
 Z = wfft(np_matrix)
 
 print("MAde it to reverse")
-reversedImage = iwfft(Z)
+reversedImage = iwfft(Z[0],Z[1])
 
 
 ax1.imshow(np_matrix, cmap=cm.gray)
-ax4.imshow(np.real(Z), cmap=cm.gray)
+ax4.imshow(np.real(Z[0]), cmap=cm.gray)
 ax5.imshow(np.real(reversedImage), cmap=cm.gray)
-ax6.imshow(np.real(ifftn(Z)),cmap=cm.gray)
+ax6.imshow(np.real(ifftn(Z[0])),cmap=cm.gray)
 plt.show()
