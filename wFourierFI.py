@@ -18,22 +18,22 @@ class Seed:
 def wFourierF( matrix, shuffled, k, l):
     N = len(matrix)
     sum = 0
-    for x in range(0, len(matrix)):
-        for y in range(0, len(matrix)):
+    for x in shuffled.mixedArray:
+        for y in shuffled.mixedArray:
             # sum += (matrix[x,y]*((np.cos(2*np.pi*(x*k+y*l)/N))-(1j*(np.sin(2*np.pi*(x*k+y*l)/N)))))
             # sum += matrix[x,y]*np.e**(-2*np.pi*1j*((seedFunction(x, 1)*k+seedFunction(y, 1)*l)/len(matrix)))
-            sum += matrix[x,y]*np.e**(-2*np.pi*1j*((shuffled.giveItem(x)*k+shuffled.giveItem(y)*l)/len(matrix)))
+            sum += matrix[x,y]*np.e**(-2*np.pi*1j*((x*k+y*l)/len(matrix)))
     return sum
 
 def wFourierI(matrix, shuffled, k, l):
     sumArray = []
     N = len(matrix)
     sum = 0
-    for x in range(0, len(matrix)):
-        for y in range(0, len(matrix)):
+    for x in shuffled.mixedArray:
+        for y in shuffled.mixedArray:
             # sum += ((1/(len(matrix)**2))*matrix[x,y]*((np.cos(2*np.pi*(x*k+y*l)/N))-(1j*(np.sin(2*np.pi*(x*k+y*l)/N)))))
             # sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((seedFunction(x, 1)*k+seedFunction(y, 1)*l)/len(matrix)))
-            sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((shuffled.giveItem(x)*k+shuffled.giveItem(y)*l)/len(matrix)))
+            sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((x*k+y*l)/len(matrix)))
             # print("")
     return sum
 
