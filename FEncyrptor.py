@@ -15,7 +15,7 @@ im = Image.open(imagePath)
 rows, cols = im.size
 matrix = [[0 for i in range(cols)] for j in range(rows)]
 
-f, ((ax1), (ax4), (ax5), (ax6)) = plt.subplots(4, 1, sharex='col', sharey='row')
+f, ((ax1), (ax4), (ax5), (ax6), (ax7)) = plt.subplots(5, 1, sharex='col', sharey='row')
     
 
 np_matrix = np.zeros((len(matrix),len(matrix[0])))
@@ -31,12 +31,17 @@ for x in range(len(matrix)):
 print("Made it to first ffft")
 Z = wfft(np_matrix)
 
+realEncypted = ifftn(Z[0])
+
+secondIm = fftn(realEncypted)
+
 print("MAde it to reverse")
-reversedImage = iwfft(Z[0],Z[1])
+reversedImage = iwfft(secondIm,Z[1])
 
 
 ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(Z[0]), cmap=cm.gray)
-ax5.imshow(np.real(reversedImage), cmap=cm.gray)
-ax6.imshow(np.real(ifftn(Z[0])),cmap=cm.gray)
+ax5.imshow(np.real(realEncypted), cmap=cm.gray)
+ax6.imshow(np.real(secondIm),cmap=cm.gray)
+ax7.imshow(np.real(reversedImage),cmap=cm.gray)
 plt.show()

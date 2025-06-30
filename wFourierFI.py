@@ -1,40 +1,27 @@
 import numpy as np
 
-
 class Seed:
     def __init__(self, array):
         tempArray = np.array(array)
         np.random.shuffle(tempArray)
         self.mixedArray = tempArray
-        # print(f"Temp Array = {tempArray}")
-        # print(self.mixedArray)
-        # print( np.random.shuffle(np.array(array)))
 
-    def giveItem(self, int):
-        # print(self.mixedArray)
-        return self.mixedArray[int]
     
 
 def wFourierF( matrix, shuffled, k, l):
     N = len(matrix)
     sum = 0
-    for x in shuffled.mixedArray:
-        for y in shuffled.mixedArray:
-            # sum += (matrix[x,y]*((np.cos(2*np.pi*(x*k+y*l)/N))-(1j*(np.sin(2*np.pi*(x*k+y*l)/N)))))
-            # sum += matrix[x,y]*np.e**(-2*np.pi*1j*((seedFunction(x, 1)*k+seedFunction(y, 1)*l)/len(matrix)))
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
             sum += matrix[x,y]*np.e**(-2*np.pi*1j*((x*k+y*l)/len(matrix)))
     return sum
 
-def wFourierI(matrix, shuffled, k, l):
-    sumArray = []
+def wFourierI(matrix, k, l):
     N = len(matrix)
     sum = 0
-    for x in shuffled.mixedArray:
-        for y in shuffled.mixedArray:
-            # sum += ((1/(len(matrix)**2))*matrix[x,y]*((np.cos(2*np.pi*(x*k+y*l)/N))-(1j*(np.sin(2*np.pi*(x*k+y*l)/N)))))
-            # sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((seedFunction(x, 1)*k+seedFunction(y, 1)*l)/len(matrix)))
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
             sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((x*k+y*l)/len(matrix)))
-            # print("")
     return sum
 
 
@@ -43,21 +30,33 @@ def wfft(matrix):
     tempArray = []
     for i in range(len(matrix)):
         tempArray.append(i)
-    # print(tempArray)
     shuffled = Seed(tempArray)
-    # print(shuffled.giveItem(0))
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            currrentVal = wFourierF(matrix, shuffled, x, y)
+    x_count = 0
+    y_count = 0
+    for x in shuffled.mixedArray:
+        for y in shuffled.mixedArray:
+            currrentVal = wFourierF(matrix, shuffled, x_count, y_count)
             returnMat[(x,y)] = currrentVal
-    print(x)
+            y_count += 1
+        x_count += 1
+        y_count = 0
     return (returnMat,shuffled)
         
-def iwfft(matrix, shuffled):
-    returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
+def unShuffle(matrix, shuffled):
+    retMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
+    mixedArray = shuffled.mixedArray
     for x in range(len(matrix)):
         for y in range(len(matrix[0])):
-            returnMat[(x,y)] = wFourierI(matrix, shuffled, x, y)
+            retMat[(x,y)] = matrix[(mixedArray[x],mixedArray[y])]
+    return retMat
+
+def iwfft(matrix, shuffled):
+    returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
+    matrix = unShuffle(matrix,shuffled)
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
+            returnMat[(x,y)] = wFourierI(matrix, x, y)
+            
     print(x)
     return returnMat
 
