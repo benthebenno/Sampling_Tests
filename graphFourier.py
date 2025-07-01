@@ -28,11 +28,11 @@ for x in range(len(matrix)):
 transformed = wfft(np_matrix)
 
 data = []
-transformed2 = fftn(transformed)
+transformed2 = fftn(transformed[0])
 print(transformed2)
 for x in range(len(matrix)):
     for y in range(len(matrix[x])):
-        data.append(transformed2[x,y])
+        data.append(np.real(transformed2[x,y]))
 
 #This plots the imaginary data, taken from https://www.geeksforgeeks.org/python/how-to-plot-a-complex-number-in-python-using-matplotlib/
 print(data)
