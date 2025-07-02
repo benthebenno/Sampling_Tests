@@ -8,7 +8,7 @@ class Seed:
 
     
 
-def wFourierF( matrix, shuffled, k, l):
+def wFourierF( matrix, k, l):
     N = len(matrix)
     sum = 0
     for x in range(len(matrix)):
@@ -35,7 +35,7 @@ def wfft(matrix):
     y_count = 0
     for x in shuffled.mixedArray:
         for y in shuffled.mixedArray:
-            currrentVal = wFourierF(matrix, shuffled, x_count, y_count)
+            currrentVal = wFourierF(matrix, x_count, y_count)
             returnMat[(x,y)] = currrentVal
             y_count += 1
         x_count += 1
@@ -59,6 +59,16 @@ def iwfft(matrix, shuffled):
             
     print(x)
     return returnMat
+
+def iwfftnoshuff(matrix):
+    returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
+            returnMat[(x,y)] = wFourierI(matrix, x, y)
+            
+    print(x)
+    return returnMat
+
 
 
             
