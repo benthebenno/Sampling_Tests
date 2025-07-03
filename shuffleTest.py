@@ -1,6 +1,5 @@
 import numpy as np
 from testFourier import wfft
-from wFourierFI import iwfftnoshuff
 from scipy.fft import ifftn
 from scipy.fft import fftn
 from PIL import Image
@@ -29,12 +28,15 @@ for x in range(len(matrix)):
             np_matrix[x,y] = 1
 
 first = wfft(np_matrix)
-second = ifftn(first)
+second = fftn(np_matrix)
 
+print(first[0][0,0])
+print(second[0,0])
+print(second)
 ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(first[0]), cmap=cm.gray)
-ax9.imshow(np.real(fftn(np_matrix)), cmap=cm.gray)
-ax5.imshow(np.real(second[0]), cmap=cm.gray)
+ax9.imshow(np.real(first[1]), cmap=cm.gray)
+ax5.imshow(np.real(second), cmap=cm.gray)
 # print(second[0])
 plt.show()
 
