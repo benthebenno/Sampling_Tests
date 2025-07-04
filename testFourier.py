@@ -3,14 +3,8 @@ import random
 
 #stands for find corresponding value, this function returns the x,y corradinate of the value corresponding to whatever is inputted
 def fcv(matrix, x, y):
-    val = matrix[x,y]
-    offset = ((len(matrix)-1)/2)
-    nx = int(x + offset)
-    ny = int(y + offset)
-    # print(nx,ny)
-    # corresponding = matrix[nx, ny]
-    # if val-corresponding != 0:
-    #     return IndexError
+    nx = int(-1*x)
+    ny = int(-1*y)
     return (nx,ny)
 def findEmpty(matrix):
     options = []
@@ -29,22 +23,34 @@ class Seed:
     def __init__(self, matrix):
         shuffled = np.full((len(matrix),len(matrix[0])), -99899, dtype=complex)
         shuffled[(0,0)] = matrix[0,0]
-        print(shuffled)
-        x = 1
-        y = 0
+        offset = len(matrix)//2
+        x = (len(matrix)//2) * -1
+        y = (len(matrix)//2) * -1
+        print(f"This is the x,y {x,y}")
+        print(len(matrix))
+        print(len(matrix)//2)
         while (findEmpty(shuffled)[1]):
                     
-                    print(f"This is the value they go up too {len(matrix)//2}")
+                    # print(f"This is the value they go up too {len(matrix)//2}")
             # for x in range(1, int((len(matrix)- 1 )/2) ):
             #     for y in range(1, (int((len(matrix)- 1)/2))):
                     # print(f"x,y {x,y}")
                     # print(shuffled)
                     # if random.randrange(0,2) == 0:
-                    print("This is what it will replace")
+                    # print("This is what it will replace")
+                    # print(x,y)
+                    # print(fcv(matrix,x,y)) 
+                    if x > len(matrix)//2:
+                        x = 0 
+                        y += 1
+                    if y > len(matrix)//2:
+                        x = 1 
+                        y = 0
+                    print("THIS IS THE X,Y")
                     print(x,y)
-                    print(fcv(matrix,x,y))
-                    value1 = matrix[x,y]
-                    value1corresponding = matrix[fcv(matrix,x,y)]
+                    value1 = matrix[x+offset,y+offset]
+                    (xoff, yoff) = fcv(matrix,x,y)
+                    value1corresponding = matrix[xoff+offset, yoff+offset]
                     options = findEmpty(shuffled)
                     if not options[1]:
                         print("IT BROKED")
@@ -53,12 +59,7 @@ class Seed:
                     shuffled[choice] = value1
                     shuffled[fcv(shuffled, choice[0], choice[1])] = value1corresponding
                     x += 1
-                    if x > len(matrix)//2:
-                        x = 0 
-                        y += 1
-                    if y > len(matrix)//2:
-                        x = 1 
-                        y = 1
+                   
                     # print("STRAT")
                     # print(shuffled)
             # print(findEmpty(shuffled)[1])
@@ -87,16 +88,11 @@ def wFourierI(matrix, k, l, shuffled):
 
 def wfft(matrix):
     returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
-    # shuffled = Seed(matrix).sMat
-    x_count = 0
-    y_count = 0
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            currrentVal = wFourierF(matrix, x_count, y_count)
-            returnMat[(x,y)] = currrentVal
-            y_count += 1
-        x_count += 1
-        y_count = 0
+    offset = len(matrix)//2
+    for x in range(-len(matrix)//2, len(matrix)//2):
+        for y in range(-len(matrix[0])//2, len(matrix[0])//2):
+            currrentVal = wFourierF(matrix, x, y)
+            returnMat[(x+offset,y+offset)] = currrentVal
     shuffled = Seed(returnMat).sMat
     return (returnMat, shuffled)
         
