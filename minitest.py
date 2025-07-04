@@ -1,3 +1,5 @@
-print(5//2+1)
-for i in range (5//2+1):
-    print(i)
+matrix = [3, 2, 34, 4, 4]
+
+for x in range(-len(matrix)//2, len(matrix)//2):
+    for y in range(-len(matrix)//2, len(matrix)//2):
+        print(x,y)
