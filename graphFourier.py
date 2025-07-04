@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 from roundComplexMatrix import roundCM
-from wFourierFI import wfft
+from testFourier import wfft
+from testFourier import iwfft
 
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
@@ -28,11 +29,11 @@ for x in range(len(matrix)):
 transformed = wfft(np_matrix)
 
 data = []
-transformed2 = fftn(transformed[0])
+transformed2 = iwfft(transformed[1])
 print(transformed2)
 for x in range(len(matrix)):
     for y in range(len(matrix[x])):
-        data.append(np.real(transformed2[x,y]))
+        data.append(transformed2[x,y])
 
 #This plots the imaginary data, taken from https://www.geeksforgeeks.org/python/how-to-plot-a-complex-number-in-python-using-matplotlib/
 print(data)
