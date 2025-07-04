@@ -23,27 +23,44 @@ class Seed:
     def __init__(self, matrix):
         shuffled = np.full((len(matrix),len(matrix[0])), 0, dtype=complex)
         trackMatrix = np.full((len(matrix),len(matrix[0])), True, dtype=bool )
+        emptySpaceMatrix = np.full((len(matrix),len(matrix[0])), True, dtype=bool )
         offset = len(matrix)//2
         shuffled[(offset,offset)] = matrix[offset,offset]
         trackMatrix[(offset,offset)] = False
+        emptySpaceMatrix[(offset,offset)] = False
         x = (len(matrix)//2) * -1
         y = (len(matrix)//2) * -1
         while (findEmpty(shuffled, trackMatrix)[1]):
+            print("this is the track")
+            print(trackMatrix)
+            print("")
+            print("This is the shuffle")
+            print(shuffled)
+            print("")
             if x > len(matrix)//2:
-                x = 0 
+                x = (len(matrix)//2) * -1 
                 y += 1
             if y > len(matrix)//2:
                 x = (len(matrix)//2) * -1 
                 y = (len(matrix)//2) * -1
+
+
+            if not trackMatrix[x+offset,y+offset]:
+                # print("IT BROKED")
+                x+=1
+                continue 
+    
             value1 = matrix[x+offset,y+offset]
             (xoff, yoff) = fcv(matrix,x,y)
             value1corresponding = matrix[xoff+offset, yoff+offset]
+
+            trackMatrix[x+offset,y+offset] = False
+            trackMatrix[xoff+offset, yoff+offset] = False
             # print(f"These are the two values {x}, {y}")
-            options = findEmpty(shuffled, trackMatrix)
-            if not trackMatrix[x,y]:
-                print("IT BROKED")
-                x+=1
-                continue 
+            options = findEmpty(shuffled, emptySpaceMatrix)
+            
+            # print(trackMatrix[x,y])
+            
             choice = random.choice(options[0])
             # print(f"These are the options: {options[0]} This is the choice: {choice}")
             shuffled[choice[0]+offset, choice[1]+offset] = value1
@@ -52,12 +69,18 @@ class Seed:
             xcorval += offset
             ycorval += offset
             shuffled[xcorval,ycorval] = value1corresponding
-            trackMatrix[xcorval,ycorval] = False
-            trackMatrix[choice[0]+offset, choice[1]+offset] = False
-            print(f"This iterations takes the value at {x,y}, which is {x+offset, y+offset} in the original matrix. Then finds its corresponding point which is {xoff, yoff}, which is {xoff+offset, yoff+offset} in the original matrix. ")
-            print(f"It then places the original value in {choice[0], choice[1]}, which is {choice[0]+offset, choice[1]+offset} in the shuffled matrix, then it places the corresponding value in {choice[0] * -1, choice[1] * -1 }, which is {xcorval, ycorval} in shuffled.")
+            
+            emptySpaceMatrix[choice[0]+offset, choice[1]+offset] = False
+            emptySpaceMatrix[xcorval,ycorval] = False
+
+
+            print("This is where it is placed")
+            print(choice[0]+offset, choice[1]+offset)
+            print(xcorval,ycorval)
+            # print(f"This iterations takes the value at {x,y}, which is {x+offset, y+offset} in the original matrix. Then finds its corresponding point which is {xoff, yoff}, which is {xoff+offset, yoff+offset} in the original matrix. ")
+            # print(f"It then places the original value in {choice[0], choice[1]}, which is {choice[0]+offset, choice[1]+offset} in the shuffled matrix, then it places the corresponding value in {choice[0] * -1, choice[1] * -1 }, which is {xcorval, ycorval} in shuffled.")
             x += 1
-                  
+                 
         self.sMat = shuffled
 
 
@@ -72,7 +95,7 @@ def wFourierF( matrix, k, l):
             sum += matrix[x,y]*np.e**(-2*np.pi*1j*((k*x+l*y)/len(matrix)))
     return sum
 
-def wFourierI(matrix, k, l, shuffled):
+def wFourierI(matrix, k, l):
     N = len(matrix)
     sum = 0
     for x in range(len(matrix)):
@@ -90,23 +113,16 @@ def wfft(matrix):
             returnMat[(x+offset,y+offset)] = currrentVal
     shuffled = Seed(returnMat).sMat
     return (returnMat, shuffled)
-        
-def unShuffle(matrix, shuffled):
-    retMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
-    mixedArray = shuffled.mixedArray
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            retMat[(x,y)] = matrix[(mixedArray[x],mixedArray[y])]
-    return retMat
 
-def iwfft(matrix, shuffled):
+def iwfft(matrix):
     returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
-    # matrix = unShuffle(matrix,shuffled)
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            returnMat[(x,y)] = wFourierI(matrix, x, y, shuffled)
+    offset = len(matrix)//2
+    for x in range(len(matrix)//2 * -1, len(matrix)//2 + 1):
+        for y in range(len(matrix[0])//2 * -1, len(matrix[0])//2 + 1):
+            returnMat[(x+offset,y+offset)] = wFourierI(matrix, x, y)
+    return returnMat
             
-    print(x)
+    # print(x)
     return returnMat
 
 def iwfftnoshuff(matrix):
@@ -115,7 +131,7 @@ def iwfftnoshuff(matrix):
         for y in range(len(matrix[0])):
             returnMat[(x,y)] = wFourierI(matrix, x, y)
             
-    print(x)
+    # print(x)
     return returnMat
 
 

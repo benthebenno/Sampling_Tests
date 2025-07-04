@@ -1,5 +1,6 @@
 import numpy as np
 from testFourier import wfft
+from testFourier import iwfft
 from scipy.fft import ifftn
 from scipy.fft import fftn
 from PIL import Image
@@ -14,7 +15,7 @@ im = Image.open(imagePath)
 rows, cols = im.size
 matrix = [[0 for i in range(cols)] for j in range(rows)]
 
-f, ((ax1), (ax4), (ax9), (ax5)) = plt.subplots(4, 1, sharex='col', sharey='row')
+f, ((ax1), (ax4), (ax9), (ax5), (ax6)) = plt.subplots(5, 1, sharex='col', sharey='row')
     
 
 np_matrix = np.zeros((len(matrix),len(matrix[0])))
@@ -28,7 +29,9 @@ for x in range(len(matrix)):
             np_matrix[x,y] = 1
 
 first = wfft(np_matrix)
-second = fftn(np_matrix)
+second = iwfft(first[1])
+
+print(second)
 
 print(first[0][0,0])
 print(second[0,0])
@@ -37,6 +40,7 @@ ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(first[0]), cmap=cm.gray)
 ax9.imshow(np.real(first[1]), cmap=cm.gray)
 ax5.imshow(np.real(second), cmap=cm.gray)
+ax6.imshow(np.real(iwfft(first[0])), cmap=cm.gray)
 # print(second[0])
 plt.show()
 
