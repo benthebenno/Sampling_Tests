@@ -29,13 +29,17 @@ for x in range(len(matrix)):
             np_matrix[x,y] = 1
 
 first = wfft(np_matrix)
-second = iwfft(first[1])
+second = wfft(first[1])[0]
 
-print(second)
+# print(second)
 
-print(first[0][0,0])
-print(second[0,0])
-print(second)
+# print(first[0][0,0])
+# print(second[0,0])
+# print(second)
+print("THIS IS THE FIRST FTTN")
+# print(fftn(first[1]))
+print(iwfft(first[1]))
+# print(np.real(wfft(first[1])[0]))
 ax1.imshow(np_matrix, cmap=cm.gray)
 ax4.imshow(np.real(first[0]), cmap=cm.gray)
 ax9.imshow(np.real(first[1]), cmap=cm.gray)

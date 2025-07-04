@@ -31,12 +31,12 @@ class Seed:
         x = (len(matrix)//2) * -1
         y = (len(matrix)//2) * -1
         while (findEmpty(shuffled, trackMatrix)[1]):
-            print("this is the track")
-            print(trackMatrix)
-            print("")
-            print("This is the shuffle")
-            print(shuffled)
-            print("")
+            # print("this is the track")
+            # print(trackMatrix)
+            # print("")
+            # print("This is the shuffle")
+            # print(shuffled)
+            # print("")
             if x > len(matrix)//2:
                 x = (len(matrix)//2) * -1 
                 y += 1
@@ -74,9 +74,9 @@ class Seed:
             emptySpaceMatrix[xcorval,ycorval] = False
 
 
-            print("This is where it is placed")
-            print(choice[0]+offset, choice[1]+offset)
-            print(xcorval,ycorval)
+            # print("This is where it is placed")
+            # print(choice[0]+offset, choice[1]+offset)
+            # print(xcorval,ycorval)
             # print(f"This iterations takes the value at {x,y}, which is {x+offset, y+offset} in the original matrix. Then finds its corresponding point which is {xoff, yoff}, which is {xoff+offset, yoff+offset} in the original matrix. ")
             # print(f"It then places the original value in {choice[0], choice[1]}, which is {choice[0]+offset, choice[1]+offset} in the shuffled matrix, then it places the corresponding value in {choice[0] * -1, choice[1] * -1 }, which is {xcorval, ycorval} in shuffled.")
             x += 1
@@ -90,17 +90,20 @@ class Seed:
 def wFourierF( matrix, k, l):
     N = len(matrix)
     sum = 0
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            sum += matrix[x,y]*np.e**(-2*np.pi*1j*((k*x+l*y)/len(matrix)))
+    offset = len(matrix)//2
+
+    for x in range(len(matrix)//2 * -1, len(matrix)//2 + 1):
+        for y in range(len(matrix[0])//2 * -1, len(matrix[0])//2 + 1):  
+            sum += matrix[x+offset,y+offset]*np.e**(-2*np.pi*1j*((k*x+l*y)/len(matrix)))
     return sum
 
 def wFourierI(matrix, k, l):
     N = len(matrix)
     sum = 0
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            sum += (1/(len(matrix)**2))*matrix[x,y]*np.e**(2*np.pi*1j*((x*k+y*l)/len(matrix)))
+    offset = len(matrix)//2
+    for x in range(len(matrix)//2 * -1, len(matrix)//2 + 1):
+        for y in range(len(matrix[0])//2 * -1, len(matrix[0])//2 + 1):
+            sum += (1/(len(matrix)**2))*matrix[x+offset,y+offset]*np.e**(2*np.pi*1j*((x*k+y*l)/len(matrix)))
     return sum
 
 
@@ -121,6 +124,7 @@ def iwfft(matrix):
         for y in range(len(matrix[0])//2 * -1, len(matrix[0])//2 + 1):
             returnMat[(x+offset,y+offset)] = wFourierI(matrix, x, y)
     return returnMat
+
 
 
 
