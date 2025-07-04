@@ -121,18 +121,6 @@ def iwfft(matrix):
         for y in range(len(matrix[0])//2 * -1, len(matrix[0])//2 + 1):
             returnMat[(x+offset,y+offset)] = wFourierI(matrix, x, y)
     return returnMat
-            
-    # print(x)
-    return returnMat
-
-def iwfftnoshuff(matrix):
-    returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            returnMat[(x,y)] = wFourierI(matrix, x, y)
-            
-    # print(x)
-    return returnMat
 
 
 

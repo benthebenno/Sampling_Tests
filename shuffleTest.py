@@ -15,7 +15,7 @@ im = Image.open(imagePath)
 rows, cols = im.size
 matrix = [[0 for i in range(cols)] for j in range(rows)]
 
-f, ((ax1), (ax4), (ax9), (ax5), (ax6)) = plt.subplots(5, 1, sharex='col', sharey='row')
+f, ((ax1), (ax4), (ax9), (ax5), (ax6), (ax7)) = plt.subplots(6, 1, sharex='col', sharey='row')
     
 
 np_matrix = np.zeros((len(matrix),len(matrix[0])))
@@ -41,6 +41,7 @@ ax4.imshow(np.real(first[0]), cmap=cm.gray)
 ax9.imshow(np.real(first[1]), cmap=cm.gray)
 ax5.imshow(np.real(second), cmap=cm.gray)
 ax6.imshow(np.real(iwfft(first[0])), cmap=cm.gray)
+ax7.imshow(np.real(fftn(np_matrix)), cmap=cm.gray)
 # print(second[0])
 plt.show()
 

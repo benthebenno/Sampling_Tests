@@ -52,7 +52,6 @@ def unShuffle(matrix, shuffled):
 
 def iwfft(matrix, shuffled):
     returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
-    matrix = unShuffle(matrix,shuffled)
     for x in range(len(matrix)):
         for y in range(len(matrix[0])):
             returnMat[(x,y)] = wFourierI(matrix, x, y)
