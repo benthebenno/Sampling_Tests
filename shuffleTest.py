@@ -32,7 +32,7 @@ for x in range(len(matrix)):
 first = wfft(np_matrix)
 second = roundMat(np.real(wfft(first[1])[0]), 10)
 third = iwfft(second)
-fourth = roundMat(iwfft(unshuffle(third, first[2])), 2)
+fourth = roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)
 # unshuffled = unshuffle(first[1].copy(), first[2])
 # second = iwfft(unshuffled)
 
