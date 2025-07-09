@@ -1,11 +1,11 @@
-from testFourier import wfft
+from finalCode.testFourier import wfft
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.fft import ifftn 
 from scipy.fft import fftn
 import matplotlib.cm as cm
-from testFourier import iwfft
+from finalCode.testFourier import iwfft
 
 
     

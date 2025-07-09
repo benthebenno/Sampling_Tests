@@ -7,7 +7,7 @@ from scipy.fft import ifftn
 import matplotlib.cm as cm
 from PIL import Image
 from initTest import matrixSum
-from roundMatrix import round
+from finalCode.roundMatrix import round
 
 def fourSwap(x_sums, y_sums, iterations, im):
 

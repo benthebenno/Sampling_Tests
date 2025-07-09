@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
-from roundMatrix import round
+from finalCode.roundMatrix import round
 
 f, ((ax1), (ax2), (ax3), (ax7)) = plt.subplots(4, 1, sharex='col', sharey='row')
 matrix = np.zeros((5,5))

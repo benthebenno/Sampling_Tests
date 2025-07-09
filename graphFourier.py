@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 from roundComplexMatrix import roundCM
-from testFourier import wfft
-from testFourier import iwfft
+from finalCode.testFourier import wfft
+from finalCode.testFourier import iwfft
 
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
