@@ -26,9 +26,13 @@ for x in range(len(matrix)):
             np_matrix[x,y] = 1
 
 first = wfft(np_matrix)
-second = roundMat(np.real(wfft(first[1])[0]), 5)
+print("first Done")
+second = roundMat(np.real(wfft(first[1])[0]), 7)
+print("second Done")
 third = iwfft(second)
+print("Third Done")
 fourth = roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)
+print("Fourth Done")
 fails = []
 failcount = 0
 for x in range(len(first)):
