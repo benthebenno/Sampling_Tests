@@ -29,8 +29,8 @@ for x in range(len(matrix)):
 transformed = wfft(np_matrix)
 
 data = []
-transformed2 = iwfft(transformed[1])
-print(transformed2)
+transformed2 = np.real(wfft(transformed[1])[0])
+# print(transformed2)
 for x in range(len(matrix)):
     for y in range(len(matrix[x])):
         data.append(transformed2[x,y])
