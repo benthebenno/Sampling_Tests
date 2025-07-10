@@ -1,11 +1,12 @@
-from finalCode.testFourier import iwfft
-from finalCode.testFourier import wfft
+from testFourier import iwfft
+from testFourier import wfft
 from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
-from finalCode.roundMatrix import roundMat
-from finalCode.testFourier import unshuffle
+from roundMatrix import roundMat
+from testFourier import unshuffle
+from roundMatrix import roundMatToBinary
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
 
@@ -31,23 +32,25 @@ second = roundMat(np.real(wfft(first[1])[0]), 8)
 print("second Done")
 third = iwfft(second)
 print("Third Done")
-fourth = roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)
+fourth = roundMatToBinary(np.real(iwfft(unshuffle(third, first[2]))), 2)
 print("Fourth Done")
 fails = []
 failcount = 0
 for x in range(len(np_matrix)):
     for y in range(len(np_matrix)):
-        if np_matrix[(x,y)] !=  (fourth[(x,y)] + 1):
-            print("It failes")
-            print(np_matrix[(x,y)])
-            print(fourth[(x,y)])
+        if np_matrix[(x,y)] !=  (fourth[(x,y)]):
+            # print("It failes")
+            # print(np_matrix[(x,y)])
+            # print(fourth[(x,y)])
             failcount += 1
             fails.append((x,y))
 
 
 print(f"There were {failcount} failures")
 print(fails)
-            
+
+# print(np.real(iwfft(unshuffle(third, first[2]))))            
+
 ax1.imshow(np.real(np_matrix), cmap=cm.gray)
 ax2.imshow(np.real(fourth), cmap=cm.gray)
 plt.show()
