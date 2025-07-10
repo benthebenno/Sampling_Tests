@@ -48,8 +48,8 @@ for count in range (iteration):
                 fails.append((x,y))
     failArray.append(failcount)
     print(f"Fails are: {failcount}")
-    if failcount > 400:
-        print("Fails over 400 times")
+    # if failcount > 400:
+    #     print("Fails over 400 times")
         # print(fourth)
 
 info = {}
