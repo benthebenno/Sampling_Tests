@@ -1,6 +1,6 @@
 import numpy as np
 import random
-
+import PIL
 #stands for find corresponding value, this function returns the x,y corradinate of the value corresponding to whatever is inputted
 def fcv( x, y):
     nx = int(-1*x)
@@ -131,7 +131,21 @@ def iwfft(matrix):
             returnMat[(x+offset,y+offset)] = wFourierI(matrix, x, y)
     return returnMat
 
-
-
-
-            
+def makeColorPicture(matrix, values):
+    # colors = ["black", "blue", "green", "cyan", "red", "magenta", "yellow", "white"]
+    colors = [(0,0,0), (0,35,245), (55,125,34), (115,251,253), (235,51,36), (88,19,94), (255,254,145), (255,255,255)]
+    im = PIL.Image.new(mode="RGB", size=(len(matrix), len(matrix[0])), color = (153, 153, 255))
+    
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
+            count = 0
+            for val in values:
+                # print(f"This is the matrix value {matrix[x,y]} at {(x,y)}")
+                # print(f"This is the val {val}")
+                if val == matrix[x,y]:
+                    # print("Triggered change")
+                    # ()
+                    im.putpixel((x,y), colors[count])
+                count += 1
+    print(values)
+    im.show()

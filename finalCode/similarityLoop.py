@@ -32,9 +32,9 @@ for count in range (iteration):
 
     first = wfft(np_matrix)
     # print("first Done")
-    second = roundMat(np.real(wfft(first[1])[0]), 6)
+    second = roundMat(np.real(wfft(first[1])[0]), 8)
     # print("second Done")
-    third = iwfft(second)
+    third = iwfft(second[0])
     # print("Third Done")
     fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2))
     # print("Fourth Done")

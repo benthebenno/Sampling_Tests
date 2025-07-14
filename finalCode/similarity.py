@@ -8,6 +8,7 @@ from roundMatrix import roundMat
 from testFourier import unshuffle
 from roundMatrix import roundMatToBinary
 from testFourier import makeBinary2Vals
+from testFourier import makeColorPicture
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
 
@@ -31,9 +32,11 @@ first = wfft(np_matrix)
 print("first Done")
 second = roundMat(np.real(wfft(first[1])[0]), 6)
 print("second Done")
-third = iwfft(second)
+makeColorPicture(second[0], second[1])
+third = iwfft(second[0])
+
 print("Third Done")
-fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2))
+fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0])
 print("Fourth Done")
 fails = []
 failcount = 0

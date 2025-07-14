@@ -25,9 +25,10 @@ def roundMat(matrix, num):
                     matrix[(x,y)] = min + offset*i
     # for i in range(difference):
     #     print(min+ (i*offset))
-            
-
-    return matrix
+    options = []
+    for i in range(difference):
+        options.append(min+offset*i)
+    return (matrix, options)
 
 def roundMatToBinary(matrix, num):
    
