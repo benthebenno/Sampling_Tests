@@ -7,6 +7,25 @@ def fcv( x, y):
     ny = int(-1*y)
     return (nx,ny)
 
+def makeBinary2Vals(matrix):
+    max = -100
+    min = 100
+    for x in range(len(matrix)):
+        for y in range(len(matrix)):
+            if matrix[x,y] < min:
+                min = matrix[x,y]
+            if matrix[x,y] > max:
+                max = matrix[x,y]
+    if max == min:
+       
+        return ValueError
+    for x in range(len(matrix)):
+        for y in range(len(matrix)):
+            if matrix[x,y] == max:
+                matrix[x,y] = 1
+            if matrix[x,y] == min:
+                matrix[x,y] = 0
+    return matrix
 def findEmpty(matrix, trackMatrix):
     options = []
     happened = False
