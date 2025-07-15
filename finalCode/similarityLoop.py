@@ -8,7 +8,6 @@ from roundMatrix import roundMat
 from testFourier import unshuffle
 from testFourier import makeBinary2Vals
 from roundMatrix import roundMatToSeven
-
 # imagePath = input("Please give an image path: ")
 im = Image.open("realQRWiki.png")
 iteration = int(input("How many loops do you want:"))
@@ -33,16 +32,17 @@ for count in range (iteration):
 
     first = wfft(np_matrix)
     # print("first Done")
-    # second = roundMatToSeven(np.real(wfft(first[1])[0]), 8)
-    second = roundMatToSeven(np.real(wfft(first[1])[0]), 8)
-
-    print(second)
-    # print("second Done")
-    third = iwfft(second[0])
-    print("Third Done")
-    print(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0])
-    print("Second part")
-    print(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[1])
+    second = roundMat(np.real(wfft(first[1])[0]), 8)
+    # print(f"The possible values in this matrix are: {second[1]}")
+    second = roundMatToSeven(second[0], second[1])
+ 
+    # third = iwfft(second[0])
+    third = iwfft(second)
+    # print("Third Done")
+    # print("This is the unshuffled thing")
+    # print(np.real(iwfft(unshuffle(third, first[2]))))
+    # print("Rounded fourth")
+    # print(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2))
     fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0])
     # print("Fourth Done")
     fails = []
@@ -68,6 +68,6 @@ for x in failArray:
 
 plt.bar(info.keys(), info.values())
 plt.show()
-# print(np.real(iwfft(unshuffle(third, first[2]))))            
+# print(np.real(iwfft(unshuffle(third, first[2]))))                   
 
 
