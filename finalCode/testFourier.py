@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import PIL
+import struct
 #stands for find corresponding value, this function returns the x,y corradinate of the value corresponding to whatever is inputted
 def fcv( x, y):
     nx = int(-1*x)
@@ -135,10 +136,16 @@ def iwfft(matrix):
 def makeColorPicture(matrix, values):
     # colors = ["black", "blue", "green", "cyan", "red", "magenta", "yellow", "white"]
     colors = [(0,0,0), (0,35,245), (55,125,34), (115,251,253), (235,51,36), (88,19,94), (255,254,145), (255,255,255)]
-    im = PIL.Image.new(mode="RGB", size=(len(matrix), len(matrix[0])), color = (153, 153, 255))
-    
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
+    im = PIL.Image.new(mode="RGB", size=(len(matrix) + 1, len(matrix[0]) + 1))
+    # These are 32 bit ints but we dont care about the end numbers as the decimal really does not need to be that accurate
+
+    min = str(bin(struct.unpack('!I', struct.pack('!f', values[0]))[0]))
+    max = str(bin(struct.unpack('!I', struct.pack('!f', values[7]))[0]))
+    # print(f"This is it {bin(res)}")
+    # print(values[0])
+    # print(values[7])
+    for x in range(1, len(matrix)):
+        for y in range(1, len(matrix[0])):
             count = 0
             for val in values:
                 # print(f"This is the matrix value {matrix[x,y]} at {(x,y)}")
@@ -148,5 +155,12 @@ def makeColorPicture(matrix, values):
                     # ()
                     im.putpixel((x,y), colors[count])
                 count += 1
+    print(f"Min = {min}")
+    print(f"Max = {max}")
+    for i in range(1, 24):
+        if min[i-1] == "0":
+            im.putpixel((0, i), colors[7])
+        if max[i-1] == "0":
+            im.putpixel((i, 25), colors[7]) 
     print(values)
     im.show()

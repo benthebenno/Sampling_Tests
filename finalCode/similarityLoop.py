@@ -34,10 +34,10 @@ for count in range (iteration):
     # print("first Done")
     second = roundMat(np.real(wfft(first[1])[0]), 8)
     # print(f"The possible values in this matrix are: {second[1]}")
-    second = roundMatToSeven(second[0], second[1])
+    # second = roundMatToSeven(second[0], second[1])
  
-    # third = iwfft(second[0])
-    third = iwfft(second)
+    third = iwfft(second[0])
+    # third = iwfft(second)
     # print("Third Done")
     # print("This is the unshuffled thing")
     # print(np.real(iwfft(unshuffle(third, first[2]))))

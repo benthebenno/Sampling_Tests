@@ -14,6 +14,10 @@ def roundMat(matrix, num):
         for y in range(len(matrix[0])):
             if matrix[(x,y)] > max:
                 max = matrix[(x,y)]
+
+    #This is part of the encryption, offsets all the values
+    # max = max + 457
+    # min = min - 257
     
     #This value defines how many possible values there could be
     difference = num
@@ -28,11 +32,15 @@ def roundMat(matrix, num):
                 # print(f"max: {max}")
                 # print(f"min: {min}")
                 if matrix[(x,y)] >= min + offset*i and matrix[(x,y)] <= min+offset*(i+1):
-                    matrix[(x,y)] = min + offset*i
+                    matrix[(x,y)] = min + offset*i 
   
     options = []
     for i in range(difference):
         options.append(min+offset*i)
+
+    for x in range(len(matrix)):
+        for y in range(len(matrix)):
+            matrix[x,y] = matrix[x,y]
     return (matrix, options)
 
 def roundMatToSeven(matrix, num):
