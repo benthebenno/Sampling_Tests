@@ -26,6 +26,7 @@ def makeBinary2Vals(matrix):
             if matrix[x,y] == min:
                 matrix[x,y] = 0
     return matrix
+
 def findEmpty(matrix, trackMatrix):
     options = []
     happened = False
