@@ -136,7 +136,7 @@ def iwfft(matrix):
 def makeColorPicture(matrix, values):
     # colors = ["black", "blue", "green", "cyan", "red", "magenta", "yellow", "white"]
     colors = [(0,0,0), (0,35,245), (55,125,34), (115,251,253), (235,51,36), (88,19,94), (255,254,145), (255,255,255)]
-    im = PIL.Image.new(mode="RGB", size=(len(matrix) + 1, len(matrix[0]) + 1))
+    im = PIL.Image.new(mode="RGB", size=(len(matrix) + 1, len(matrix[0]) + 1), )
     # These are 32 bit ints but we dont care about the end numbers as the decimal really does not need to be that accurate
 
     min = str(bin(struct.unpack('!I', struct.pack('!f', values[0]))[0]))
@@ -155,12 +155,19 @@ def makeColorPicture(matrix, values):
                     # ()
                     im.putpixel((x,y), colors[count])
                 count += 1
-    print(f"Min = {min}")
-    print(f"Max = {max}")
-    for i in range(1, 24):
-        if min[i-1] == "0":
-            im.putpixel((0, i), colors[7])
-        if max[i-1] == "0":
-            im.putpixel((i, 25), colors[7]) 
+    # 1100010001000010111110011010
+    # print(f"Real max= {values[0]}, min = {values[7]}")
+    # print(f"Min binary = {min}")
+    # print(f"Max binary = {max}")
+    for i in range(1, 29):
+        if min[i+1] == "0":
+            im.putpixel((i, 0), colors[7])
+        if max[i+1] == "0":
+            im.putpixel((29, i), colors[7]) 
+        if min[i+1] == "1":
+            im.putpixel((i, 0), colors[2])
+        if max[i+1] == "1":
+            im.putpixel((29, i), colors[2]) 
     print(values)
-    im.show()
+    # im.show()
+    im.save("FEC-Code.png")

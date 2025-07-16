@@ -30,7 +30,7 @@ for x in range(len(matrix)):
 
 first = wfft(np_matrix)
 print("first Done")
-second = roundMat(np.real(wfft(first[1])[0]), 8)
+second = roundMat(np.real(wfft(first[1])[0]), 8, False)
 # print("second Done")
 # second = roundMatToSeven(second[0],second[1])
 makeColorPicture(second[0], second[1])
@@ -44,7 +44,7 @@ third = iwfft(second[0])
 # print(f"The input to round {(np.real(iwfft(unshuffle(third, first[2]))))}")
 # print(f"The thing {roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0]}")
 
-fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0])
+fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2, True)[0])
 
 # print("Fourth Done")
 fails = []
