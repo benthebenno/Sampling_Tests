@@ -9,6 +9,8 @@ from testFourier import unshuffle
 from testFourier import makeBinary2Vals
 from testFourier import makeColorPicture
 
+
+#This file runs one encryption and un-encryption process then displays the original and final matrix. As well it gives the number of errors betw
 imagePath = input("Please give an image path: ")
 im = Image.open(imagePath)
 
@@ -31,39 +33,22 @@ for x in range(len(matrix)):
 first = wfft(np_matrix)
 print("first Done")
 second = roundMat(np.real(wfft(first[1])[0]), 8, False)
-# print("second Done")
-# second = roundMatToSeven(second[0],second[1])
-makeColorPicture(second[0], second[1])
-# for x in range(len(second[0])):
-#         for y in range(len(second[0])):
-#             second[0][x,y] = second[0][x,y] - 574
-
+# makeColorPicture(second[0], second[1])
 third = iwfft(second[0])
-
-# print("Third Done")
-# print(f"The input to round {(np.real(iwfft(unshuffle(third, first[2]))))}")
-# print(f"The thing {roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2)[0]}")
-
 fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2, True)[0])
 
-# print("Fourth Done")
 fails = []
 failcount = 0
 for x in range(len(np_matrix)):
     for y in range(len(np_matrix)):
         if np_matrix[(x,y)] !=  (fourth[(x,y)]):
-            # print("It failes")
-            # print(np_matrix[(x,y)])
-            # print(fourth[(x,y)])
             failcount += 1
             fails.append((x,y))
 
 
 print(f"There were {failcount} failures")
 print(fails)
-
-# print(np.real(iwfft(unshuffle(third, first[2]))))            
-
+    
 ax1.imshow(np.real(np_matrix), cmap=cm.gray)
 ax2.imshow(np.real(fourth), cmap=cm.gray)
 plt.show()

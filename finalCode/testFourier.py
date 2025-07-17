@@ -2,12 +2,17 @@ import numpy as np
 import random
 import PIL
 import struct
-#stands for find corresponding value, this function returns the x,y corradinate of the value corresponding to whatever is inputted
+
+#This file contains many functions important for the transformation and encryption process
+
+#stands for find corresponding value, this function returns the x,y coordinates of the value corresponding to whatever is inputted
 def fcv( x, y):
     nx = int(-1*x)
     ny = int(-1*y)
     return (nx,ny)
 
+#This makes a matrix with only two values a binary matrix, this is used in conjunction with rounding a matrix to two values then using this
+# function
 def makeBinary2Vals(matrix):
     max = -100
     min = 100
@@ -28,6 +33,8 @@ def makeBinary2Vals(matrix):
                 matrix[x,y] = 0
     return matrix
 
+
+# This is a helper function for the shuffler, finds if there are any empty spots in a matrix, by using the trackMatrix
 def findEmpty(matrix, trackMatrix):
     options = []
     happened = False
@@ -39,12 +46,18 @@ def findEmpty(matrix, trackMatrix):
                 options.append((x,y))
     return (options, happened)
 
+#This seed class is what shuffles the matrix, it holds the shuffled matrix, and the 'key' for unshuffling it. At the moment the 'key' is just
+# a dictionary with the correct positions, with a little work this could be changed to be an actual encrypted key. 
 class Seed:
+    #This init takes in a matrix, and shuffles it while keeping the pairs (i.e 1,1 to -1,1) together
     def __init__(self, matrix):
         locations = {}
+
+        #These three matrixes, work together to track where things have been placed and where they should be placed
         shuffled = np.full((len(matrix),len(matrix[0])), 0, dtype=complex)
         trackMatrix = np.full((len(matrix),len(matrix[0])), True, dtype=bool )
         emptySpaceMatrix = np.full((len(matrix),len(matrix[0])), True, dtype=bool )
+
         offset = len(matrix)//2
         shuffled[(offset,offset)] = matrix[offset,offset]
         trackMatrix[(offset,offset)] = False
@@ -85,8 +98,6 @@ class Seed:
         self.sMat = shuffled
         self.key = locations
 
-
-
     
 
 def wFourierF( matrix, k, l):
@@ -108,6 +119,7 @@ def wFourierI(matrix, k, l):
             sum += (1/(len(matrix)**2))*matrix[x+offset,y+offset]*np.e**(2*np.pi*1j*((x*k+y*l)/len(matrix)))
     return sum
 
+#This function does a Forwards Fourier Transformation, based of the equation given by Professor Levinson  
 def wfft(matrix):
     returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
     offset = len(matrix)//2
@@ -118,6 +130,7 @@ def wfft(matrix):
     seed = Seed(returnMat)
     return (returnMat, seed.sMat, seed)
 
+#This function takes a matrix and seed, then unshuffles the matrix, since the key is the correct location were the pixel should be placed
 def unshuffle(matrix, seed):
     copy = matrix.copy()
     for x in range(len(matrix)):
@@ -125,6 +138,7 @@ def unshuffle(matrix, seed):
             matrix[seed.key[(x,y)]] = copy[x,y]
     return matrix
 
+#This function does a Inverse Fourier Transformation, based of the equation given by Professor Levinson  
 def iwfft(matrix):
     returnMat = np.zeros((len(matrix),len(matrix[0])), dtype=complex)
     offset = len(matrix)//2
@@ -133,32 +147,24 @@ def iwfft(matrix):
             returnMat[(x+offset,y+offset)] = wFourierI(matrix, x, y)
     return returnMat
 
+#This function can be added to either shuffleTest.py or similarity.py (or technically any file though I would not reccomend others) to make a full
+# FEC-Code
 def makeColorPicture(matrix, values):
-    # colors = ["black", "blue", "green", "cyan", "red", "magenta", "yellow", "white"]
+    # These colors are ["black", "blue", "green", "cyan", "red", "magenta", "yellow", "white"]
     colors = [(0,0,0), (0,35,245), (55,125,34), (115,251,253), (235,51,36), (88,19,94), (255,254,145), (255,255,255)]
     im = PIL.Image.new(mode="RGB", size=(len(matrix) + 1, len(matrix[0]) + 1), )
-    # These are 32 bit ints but we dont care about the end numbers as the decimal really does not need to be that accurate
 
+    # These are 32 bit ints but we dont care about the end numbers as the decimal really does not need to be that accurate
     min = str(bin(struct.unpack('!I', struct.pack('!f', values[0]))[0]))
     max = str(bin(struct.unpack('!I', struct.pack('!f', values[7]))[0]))
-    # print(f"This is it {bin(res)}")
-    # print(values[0])
-    # print(values[7])
+
     for x in range(1, len(matrix)):
         for y in range(1, len(matrix[0])):
             count = 0
             for val in values:
-                # print(f"This is the matrix value {matrix[x,y]} at {(x,y)}")
-                # print(f"This is the val {val}")
                 if val == matrix[x,y]:
-                    # print("Triggered change")
-                    # ()
                     im.putpixel((x,y), colors[count])
                 count += 1
-    # 1100010001000010111110011010
-    # print(f"Real max= {values[0]}, min = {values[7]}")
-    # print(f"Min binary = {min}")
-    # print(f"Max binary = {max}")
     for i in range(1, 29):
         if min[i+1] == "0":
             im.putpixel((i, 0), colors[7])
@@ -168,6 +174,5 @@ def makeColorPicture(matrix, values):
             im.putpixel((i, 0), colors[2])
         if max[i+1] == "1":
             im.putpixel((29, i), colors[2]) 
-    print(values)
-    # im.show()
     im.save("FEC-Code.png")
+    im.show()

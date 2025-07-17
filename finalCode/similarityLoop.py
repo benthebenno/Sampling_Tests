@@ -7,50 +7,53 @@ import numpy as np
 from roundMatrix import roundMat
 from testFourier import unshuffle
 from testFourier import makeBinary2Vals
-# imagePath = input("Please give an image path: ")
-im = Image.open("realQRWiki.png")
+
+#This file runs for an inputted amount of iterations, creating new QR code encryptions and then unencrypts them, this tests how much data is lost in 
+# the FEC process, I have found that rounding to 8 is the lowest we can go while still getting consistently under 15 differences
+
+imagePath = input("Please give an image path: ")
+im = Image.open(imagePath)
+
 iteration = int(input("How many loops do you want:"))
 failArray = []
+
+rows, cols = im.size
+matrix = [[0 for i in range(cols)] for j in range(rows)] 
+np_matrix = np.zeros((len(matrix),len(matrix[0])))
+
+#This seperates the image into a matrix, of binary data, this matrix is used for transformation and comparison
+for x in range(len(matrix)):
+    for y in range(len(matrix[x])):
+        if im.getpixel((x,y))[0] > 130:
+            np_matrix[x, y] = 0
+        else: 
+            np_matrix[x,y] = 1
+
 for count in range (iteration):
+
     print(count)
-    rows, cols = im.size
-    matrix = [[0 for i in range(cols)] for j in range(rows)]
-
-    # f, ((ax1), (ax2)) = plt.subplots(2, 1, sharex='col', sharey='row')
-        
-
-    np_matrix = np.zeros((len(matrix),len(matrix[0])))
-
-    #This seperates the image into a matrix, of points an non points, perhaps not the most elegant solution but it
-    for x in range(len(matrix)):
-        for y in range(len(matrix[x])):
-            if im.getpixel((x,y))[0] > 130:
-                np_matrix[x, y] = 0
-            else: 
-                np_matrix[x,y] = 1
-
+    
+    #These two lines makes a shuffled matrix of real values
     first = wfft(np_matrix)
-    # print("first Done")
     second = roundMat(np.real(wfft(first[1])[0]), 8, False)
-    # print("second Done")
+
+    #These two lines reverse the last two lines and output the final matrix, the fourth would be identical to the first if we did not round
+    # but we round to make it so information can actually be displayed
     third = iwfft(second[0])
-    # print("Third Done")
     fourth = makeBinary2Vals(roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2, True)[0])
-    # print("Fourth Done")
-    fails = []
+
+
+    #This part compares the final matrix to the original to see how diffrent they are, then this data is saved
     failcount = 0
     for x in range(len(np_matrix)):
         for y in range(len(np_matrix)):
             if np_matrix[(x,y)] !=  (fourth[(x,y)]):
-                
                 failcount += 1
-                fails.append((x,y))
     failArray.append(failcount)
     print(f"Fails are: {failcount}")
-    # if failcount > 400:
-    #     print("Fails over 400 times")
-        # print(fourth)
 
+
+#This final section takes all the stored data and makes it into a graph which is displayed
 info = {}
 for x in failArray:
     if x in info.keys():
@@ -60,6 +63,5 @@ for x in failArray:
 
 plt.bar(info.keys(), info.values())
 plt.show()
-# print(np.real(iwfft(unshuffle(third, first[2]))))            
 
 
