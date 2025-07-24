@@ -32,7 +32,7 @@ for x in range(len(matrix)):
 
 #This is the run through of the encryption 
 first = wfft(np_matrix)
-second = roundMat(np.real(wfft(first[1])[0]), 10, True)[0]
+second = roundMat(np.real(wfft(first[1])[0]), 8, True)[0]
 third = iwfft(second)
 fourth = roundMat(np.real(iwfft(unshuffle(third, first[2]))), 2, False)[0]
 
